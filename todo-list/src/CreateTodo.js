@@ -3,13 +3,15 @@ import './App.css';
 
 class CreateTodo extends Component {
   state={
-    text:''
+    content:'',
+    title:''
   }
   
   addContent=()=>{
-    this.props.addInfo(this.state.text)
+    this.props.addInfo(this.state.title,this.state.content)
     this.setState({
-      text:''
+      title:'',
+      content:''
     })
   }
   handleKeyPress = (e) => {
@@ -26,7 +28,8 @@ class CreateTodo extends Component {
   render() {
     return (
       <div className="App">
-      <input name ="text" type="text" value={this.state.text}  onKeyPress={this.handleKeyPress} onChange={this.handleChange} />
+      <input name ="title" type="text" value={this.state.title} onChange={this.handleChange} />
+      <input name ="content" type="textarea" value={this.state.content}  onKeyPress={this.handleKeyPress} onChange={this.handleChange} />
         <input type="submit" onClick={this.addContent} />
       </div>
     );

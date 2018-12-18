@@ -7,9 +7,9 @@ class TodoItemList extends Component {
   }
 
   render() {
-    const { data , deleteInfo } = this.props
+    const { data , selectInfo } = this.props
     const item = data.map((info)=>(
-      <TodoItem info={info} deleteInfo={deleteInfo} ></TodoItem>
+      <TodoItem selectInfo={selectInfo} info={info} ></TodoItem>
     ))
     return (
       <div className="App">
