@@ -18,6 +18,7 @@ class App extends Component {
   updateInfo=(id,title,content)=>{
     const { information } = this.state;
     console.log('update'+title+content)
+    todoItemStore.setItem(id,title,content)
     this.setState({
       information: information.map(
         info => {
@@ -42,15 +43,47 @@ class App extends Component {
   }
   deleteInfo=(id)=>{
     this.setState({information: this.state.information.filter(info => info.id !== id)})
+    todoItemStore.invalidateItem()
   }
   selectInfo=(id,title,content)=>{
     todoItemStore.setItem(id,title,content)
   }
+  upInfo=(id)=>{
+    let information = this.state.information
+    information.map(info =>{
+      if(info.id===id){
+          info.id*=1  
+          info.id=info.id-1
+          information[info.id-1].id=id
+      }
+    })
+    information.sort(function(a, b) { 
+      return a.id - b.id
+    });
+    this.setState({
+        information: information
+    })
+  }
+
+  downInfo=(id)=>{
+    let information = this.state.information
+    information.map(info =>{
+      if(info.id===id){
+          info.id*=1  
+          info.id=info.id+1
+          information[id].id=id
+      }
+    })
+    information.sort(function(a, b) { 
+      return a.id - b.id
+    });
+    this.setState({
+        information: information
+    })
+  }
   render() {
-    
     return (
       <div className="App">
-        {/* {todoItemStore.getItem().itemId} */}
         <Provider
         todoItemStore={todoItemStore}
       >
@@ -60,6 +93,8 @@ class App extends Component {
         <TodoItemList
           selectInfo={this.selectInfo}
           data={this.state.information}
+          upInfo={this.upInfo}
+          downInfo={this.downInfo}
         />
       </div>
     );

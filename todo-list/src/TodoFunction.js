@@ -23,6 +23,7 @@ class TodoFunction extends Component {
         editing: !this.state.editing
       })
         this.props.updateInfo(this.todoItem.itemId,this.state.title,this.state.content)
+        
       }
     
     deleteInfo=()=>{
@@ -42,16 +43,26 @@ class TodoFunction extends Component {
       {
         editing ? (
           <div>
-          <input name="title" value ={this.state.title} onChange={this.handleChange}></input>
-          <input name="content" value = {this.state.content} onChange={this.handleChange}></input>
+          <div>
+          제목: <input name="title" value ={this.state.title} onChange={this.handleChange}></input>
+          </div>
+          <div>
+          내용: <input name="content" value = {this.state.content} onChange={this.handleChange}></input>
+          </div>
+          <div>
           <button onClick={this.updateInfo}> 수정완료 </button>
+          </div>
           </div>
         ) :(
           <div>
-        {this.todoItem.itemTitle}
-        {this.todoItem.itemContent}
+          <div>
+        제목: {this.todoItem.itemTitle}
+        </div>
+        <div>
+        내용: {this.todoItem.itemContent}
+        </div>
           <button onClick={this.handleToggleEdit}>수정</button>
-          </div>
+        </div>
         )
       }
     
